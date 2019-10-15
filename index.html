@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="dist/jquery.pajinatify.css">
+    <title>Document</title>
+    <style>
+        body {
+            background: #CCBBDD;
+        }
+        table {
+            margin: 0 auto;
+        }
+    </style>
+    <script src="dist/angularjs.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl" ng-model="dollar">
+        <h2>Pokemons</h2>
+         <label>Ordenar Por:</label><br>
+        <select ng-model="orderFor" ng-options="x.name for x in options">
+        </select>
+        <hr>
+        <div ng-view>
+            <table width="500">
+                <tr >
+                    <th></th>
+                    <th align="left" ng-repeat="op in options">{{op.name | uppercase}}</th>
+                </tr>
+
+                <tr ng-repeat="pok in pokemons | orderBy:orderFor.value">
+                    <td>
+                        <img ng-mouseover="frontToBackShiny($event)" ng-mouseleave="backShinyToFront($event)" 
+                                                            src="{{pok.sprites.front_default}}" width="72" height="72">
+                        <img ng-mouseover="backToFrontShiny($event)" ng-mouseleave="FrontShinyToBack($event)"
+                                                            src="{{pok.sprites.back_default}}" width="72" height="72">
+                    </td>
+                    <td>{{pok.name | uppercase}}</td>
+                    <td>{{pok.stats[0].base_stat}}</td>
+                    <td>{{pok.stats[4].base_stat}}</td>
+                </tr>
+            </table>
+            <div class="pagination" data-total-count="220" data-take="6"></div>            
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+    <script src="dist/jquery.js"></script>
+    <script src="dist/jquery.pajinatify.min.js"></script>
+</body>
+</html>
